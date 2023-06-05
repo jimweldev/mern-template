@@ -48,15 +48,27 @@ const PrivateLayout = () => {
               </NavLink>
             </li>
             <li className="sidebar-item">
-              <NavLink className="sidebar-link" to="/tiny-mce">
-                <FiHome className="feather" />
-                <span className="align-middle">TinyMCE</span>
-              </NavLink>
-            </li>
-            <li className="sidebar-item">
               <NavLink className="sidebar-link" to="/formik">
                 <FiHome className="feather" />
                 <span className="align-middle">Formik</span>
+              </NavLink>
+            </li>
+            <li className="sidebar-item">
+              <NavLink className="sidebar-link" to="/modal">
+                <FiHome className="feather" />
+                <span className="align-middle">Modal</span>
+              </NavLink>
+            </li>
+            <li className="sidebar-item">
+              <NavLink className="sidebar-link" to="/react-query">
+                <FiHome className="feather" />
+                <span className="align-middle">React Query</span>
+              </NavLink>
+            </li>
+            <li className="sidebar-item">
+              <NavLink className="sidebar-link" to="/quill">
+                <FiHome className="feather" />
+                <span className="align-middle">Quill</span>
               </NavLink>
             </li>
           </ul>

@@ -49,6 +49,10 @@ const Zustand = lazy(() => import('./pages/Private/Zustand'));
 const Toast = lazy(() => import('./pages/Private/Toast'));
 const TinyMce = lazy(() => import('./pages/Private/TinyMce'));
 const Formik = lazy(() => import('./pages/Private/Formik'));
+const Modal = lazy(() => import('./pages/Private/Modal'));
+const ReactQuery = lazy(() => import('./pages/Private/ReactQuery'));
+const Quill = lazy(() => import('./pages/Private/Quill'));
+const Jodit = lazy(() => import('./pages/Private/Jodit'));
 
 export const PrivateRoutes = () => {
   return (
@@ -57,8 +61,10 @@ export const PrivateRoutes = () => {
         <Route path="/" element={<Home />} />
         <Route path="/zustand" element={<Zustand />} />
         <Route path="/toast" element={<Toast />} />
-        <Route path="/tiny-mce" element={<TinyMce />} />
         <Route path="/formik" element={<Formik />} />
+        <Route path="/modal" element={<Modal />} />
+        <Route path="/react-query" element={<ReactQuery />} />
+        <Route path="/quill" element={<Quill />} />
       </Route>
 
       <Route path="/*" element={<Navigate to="/" replace />} />
