@@ -47,12 +47,10 @@ export const PublicRoutes = () => {
 const Home = lazy(() => import('./pages/Private/Home'));
 const Zustand = lazy(() => import('./pages/Private/Zustand'));
 const Toast = lazy(() => import('./pages/Private/Toast'));
-const TinyMce = lazy(() => import('./pages/Private/TinyMce'));
 const Formik = lazy(() => import('./pages/Private/Formik'));
 const Modal = lazy(() => import('./pages/Private/Modal'));
 const ReactQuery = lazy(() => import('./pages/Private/ReactQuery'));
 const Quill = lazy(() => import('./pages/Private/Quill'));
-const Jodit = lazy(() => import('./pages/Private/Jodit'));
 
 export const PrivateRoutes = () => {
   return (
