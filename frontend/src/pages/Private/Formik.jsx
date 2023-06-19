@@ -2,37 +2,36 @@ import React from 'react';
 
 // libraries
 import { useFormik } from 'formik';
+import axios from 'axios';
+
+import useAuthUserStore from '../../app/authUserStore';
 
 const Formik = () => {
+  const { login } = useAuthUserStore((state) => ({
+    login: state.login,
+  }));
+
   // login form
   const loginFormik = useFormik({
     initialValues: {
-      username: '',
+      emailAddress: '',
       password: '',
     },
     validate: loginValidate,
     onSubmit: async (values) => {
-      console.log(values);
       //   setIsLoginLoading(true);
 
-      //   axios
-      //     .post('/auth/login/uptime', values)
-      //     .then((res) => {
-      //       if (res.data?.verify_login) {
-      //         // otp
-      //         setIsModalOpen(true);
-      //         formikVerify.setFieldValue('user_id', res.data?.user_id);
-      //       } else {
-      //         dispatch(LOGIN(res.data.token));
-      //         dispatch(SET_LAST_LOGIN(res.data.last_login));
-      //       }
-      //     })
-      //     .catch((error) => {
-      //       toast.error(error.response?.data.message);
-      //     })
-      //     .finally(() => {
-      //       setIsLoginLoading(false);
-      //     });
+      axios
+        .post('/api/auth/login', values)
+        .then((res) => {
+          login(res.data);
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+        })
+        .finally(() => {
+          // setIsLoginLoading(false);
+        });
     },
   });
 
@@ -43,22 +42,23 @@ const Formik = () => {
           <h1 className="h2">Login</h1>
 
           <div className="mb-3">
-            <label htmlFor="username">Username</label>
+            <label htmlFor="emailAddress">EmailAddress</label>
             <input
               className={`form-control form-control-lg ${
-                loginFormik.errors.username &&
-                loginFormik.touched.username &&
+                loginFormik.errors.emailAddress &&
+                loginFormik.touched.emailAddress &&
                 'invalid'
               }`}
-              id="username"
+              id="emailAddress"
               type="text"
-              {...loginFormik.getFieldProps('username')}
+              {...loginFormik.getFieldProps('emailAddress')}
             />
-            {loginFormik.errors.username && loginFormik.touched.username && (
-              <div className="form-text text-danger">
-                {loginFormik.errors.username}
-              </div>
-            )}
+            {loginFormik.errors.emailAddress &&
+              loginFormik.touched.emailAddress && (
+                <div className="form-text text-danger">
+                  {loginFormik.errors.emailAddress}
+                </div>
+              )}
           </div>
 
           <div className="mb-3">
@@ -97,13 +97,13 @@ export default Formik;
 const loginValidate = (values) => {
   const errors = {};
 
-  // check if username is not empty
-  if (!values.username) {
-    errors.username = 'Required';
+  // check if emailAddress is not empty
+  if (!values.emailAddress) {
+    errors.emailAddress = 'Required';
   } else if (
-    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.username)
+    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.emailAddress)
   ) {
-    errors.username = 'Invalid username format';
+    errors.emailAddress = 'Invalid emailAddress format';
   }
 
   // check if password is not empty

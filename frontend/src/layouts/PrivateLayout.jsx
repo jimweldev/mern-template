@@ -1,4 +1,4 @@
-import React, { useState, Suspense } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 
 // libraries
 import { NavLink, Link, Outlet } from 'react-router-dom';
@@ -13,9 +13,16 @@ import {
   FiLogOut,
 } from 'react-icons/fi';
 
+import useAuthUserStore from '../app/authUserStore';
+
 import Avatar from '../assets/avatar.jpg';
 
 const PrivateLayout = () => {
+  const { authUser, logout } = useAuthUserStore((state) => ({
+    authUser: state.authUser,
+    logout: state.logout,
+  }));
+
   const [isSidebarCollapsed, setisSidebarCollapsed] = useState(false);
 
   return (
@@ -178,7 +185,9 @@ const PrivateLayout = () => {
                     className="avatar img-fluid rounded me-1"
                     alt="Charles Hall"
                   />
-                  <span className="text-dark me-1">Charles Hall</span>
+                  <span className="text-dark me-1">
+                    {authUser.user?.emailAddress}
+                  </span>
                 </a>
                 <div className="dropdown-menu dropdown-menu-end">
                   <a className="dropdown-item">
@@ -186,10 +195,15 @@ const PrivateLayout = () => {
                     Profile
                   </a>
 
-                  <a className="dropdown-item">
+                  <button
+                    className="dropdown-item"
+                    onClick={() => {
+                      logout();
+                    }}
+                  >
                     <FiLogOut className="feather me-1" />
                     Log out
-                  </a>
+                  </button>
                 </div>
               </li>
             </ul>

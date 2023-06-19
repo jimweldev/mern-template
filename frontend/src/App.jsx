@@ -6,16 +6,25 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 // layouts
 import PublicLayout from './layouts/PublicLayout';
 import PrivateLayout from './layouts/PrivateLayout';
+import RefreshToken from './layouts/RefreshToken';
+
+import useAuthUserStore from './app/authUserStore';
 
 const App = () => {
+  const { authUser } = useAuthUserStore((state) => ({
+    authUser: state.authUser,
+  }));
+
   return (
-    <Routes>
-      {true ? (
-        <Route path="/*" element={<PrivateRoutes />} />
-      ) : (
-        <Route path="/*" element={<PublicRoutes />} />
-      )}
-    </Routes>
+    <RefreshToken>
+      <Routes>
+        {authUser ? (
+          <Route path="/*" element={<PrivateRoutes />} />
+        ) : (
+          <Route path="/*" element={<PublicRoutes />} />
+        )}
+      </Routes>
+    </RefreshToken>
   );
 };
 
